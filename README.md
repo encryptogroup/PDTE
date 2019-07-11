@@ -33,9 +33,7 @@ target_link_libraries(hhh boost_system pthread ${ECC_LIB})
 6. Run the following commands:
 ```
 cd benchmark_gt
-mkdir build
-cd build
-cmake ..
-make
+mkdir build & cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release & make
 ```
 7. In two separate terminals, run ```./hhh 0``` and ```./hhh 1``` for the server and client applications. You can configure the DT and PROT variables in the beginning of the file benchmark_dt/hhh.cpp for running different protocol parts and decision trees. 
