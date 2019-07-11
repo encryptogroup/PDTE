@@ -246,7 +246,9 @@ void play_server(tcp::iostream &conn)
 	uint32_t i = DT, k = 0;
 	DecTree tree;
 	tree.read_from_file(filename[i]);
-	//tree.depthPad(); //for benchmarking inefficient protocol HHG
+	if(PROT == 2){
+		tree.depthPad(); //for benchmarking inefficient protocol HHG
+	}
 
 	conn << tree.num_attributes  << '\n';
 	conn << tree.num_dec_nodes  << '\n';
@@ -323,9 +325,6 @@ void play_server(tcp::iostream &conn)
 		uint32_t j = 0;
 		while(output_shares >> server_bits[j]){
 			j++;
-		}
-		if(j != tree.num_dec_nodes){
-			cerr << "PROBLEM " << j << " " << tree.num_dec_nodes << endl;
 		}
 		output_shares.close();
 	}
@@ -449,9 +448,6 @@ void play_client(tcp::iostream &conn)
 		uint32_t j = 0;
 		while(output_shares >> client_out[j]){
 			j++;
-		}
-		if(j != num_dec_nodes){
-			cerr << "PROBLEM " << j << " " << num_dec_nodes << endl;
 		}
 		output_shares.close();
 	}
