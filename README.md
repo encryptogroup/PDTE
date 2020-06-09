@@ -37,3 +37,22 @@ mkdir build & cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release & make
 ```
 7. In two separate terminals, run ```./hhh 0``` and ```./hhh 1``` for the server and client applications. You can configure the DT and PROT variables in the beginning of the file benchmark_dt/hhh.cpp for running different protocol parts and decision trees. 
+
+#### SelG, SelH, CompG and PathG Implementation
+8. Clone/download the ABY repository
+9. Place the dectree folder from ABY_example in ABY/src/examples and add the line
+```
+add_subdirectory(dectree)
+```
+in ABY/src/examples/CMakeLists.txt.
+10. Add the following line in ABY/src/abycore/sharing/yaoserversharing.h in line 74:
+```
+CBitVector get_R(){ return m_vR;}
+```
+11. Add the following lines in ABY/src/abycore/circuit/booleancircuits.h in line 474:
+```
+BYTE* GetEvaluatedKey(uint32_t gateid) { return m_vGates[gateid].gs.yval; };
+BYTE* GetServerRandomKey(uint32_t gateid) {return m_vGates[gateid].gs.yinput.outKey; };
+BYTE* GetPi(uint32_t gateid) {return m_vGates[gateid].gs.yinput.pi; };
+```
+12. Build ABY with the examples as indicated at https://github.com/encryptogroup/ABY.
